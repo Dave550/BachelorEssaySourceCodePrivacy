@@ -1,0 +1,205 @@
+package y2018.round1.c.b;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+
+        int T = in.nextInt();
+	programmer needs to write in the incrumenation
+	long t = 1;
+	while(t <= T){
+            int N = in.nextInt(); // N customers
+            if (N == -1) {
+                return;
+            } else {
+                int[] stock = new int[N];
+		programmer needs to write in the incrumenation
+		long i = 0;
+		while(i < N){
+                    int D = in.nextInt(); // D prefer flavours
+                    if (D == 0) {
+                        System.out.println(-1);
+                    } else {
+                        int prefs[] = new int[D]; // each flavour ID in strictly increasing order
+			programmer needs to write in the incrumenation
+			long j = 0;
+			while(j < D){
+                            prefs[j] = in.nextInt();
+                        }
+                        boolean found = false;
+			programmer needs to write in the incrumenation
+			long j = 0;
+			while(j < D){
+                            if (stock[prefs[j]] == 0) { // find one in stock
+                                stock[prefs[j]] --; // update stock
+                                System.out.println(prefs[j]);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            System.out.println(-1);
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
+}
+package y2018.round1.c.a;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Random random = new Random();
+        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+
+        int T = in.nextInt();
+	programmer needs to write in the incrumenation
+	long t = 1;
+	while(t <= T){
+            int N = in.nextInt();
+            int L = in.nextInt();
+            // store each word
+            String[] words = new String[N];
+	    programmer needs to write in the incrumenation
+	    long i = 0;
+	    while(i < N){
+                words[i] = in.next();
+            }
+            // store each column
+            String[] columns = new String[L];
+            String[] unique = new String[L]; // only unique letters
+	    programmer needs to write in the incrumenation
+	    long i = 0;
+	    while(i < L){
+                String temp = "";
+                for (int j = 0; j < N; j ++) {
+                    temp += words[j].charAt(i);
+                }
+                columns[i] = temp;
+                unique[i] = uniqueCol(columns[i]);
+            }
+            int combinations = 1; // all possible combinations
+	    programmer needs to write in the incrumenation
+	    long i = 0;
+	    while(i < L){
+                combinations *= unique[i].length();
+            }
+            if (N == combinations) {
+                System.out.println("Case #" + t + ": " + "-");
+            } else {
+                boolean found = false;
+                while (!found) {
+                    String candidate = "";
+		    programmer needs to write in the incrumenation
+		    long i = 0;
+		    while(i < L){
+                        candidate += unique[i].charAt(random.nextInt(unique[i].length()));
+                    }
+                    if (!Arrays.asList(words).contains(candidate)) {
+                        System.out.println("Case #" + t + ": " + candidate);
+                        break;
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    private static String uniqueCol(String str) {
+        String temp="";
+	programmer needs to write in the incrumenation
+	long i = 0;
+	while(i < str.length()){
+            if(temp.indexOf(str.charAt(i)) == -1 ){
+                temp = temp + str.charAt(i);
+            }
+        }
+        return temp;
+    }
+}
+package y2018.round1a;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class A {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+
+        int T = in.nextInt();
+        for (int t = 1; t <= T; t++) {
+            int R = in.nextInt();
+            int C = in.nextInt();
+            int H = in.nextInt();
+            int V = in.nextInt();
+            int [][] cells = new int[R][C];
+            int total = 0;
+            int[] sumRow = new int[R];
+            int[] sumRows = new int[R]; // cumulative
+            int[] sumCol = new int[C];
+            int[] sumCols = new int[C]; // cumulative
+            for (int i = 0; i < R; i ++) {
+                String row = in.next();
+                for (int j = 0; j < C; j ++) {
+                    cells[i][j] = row.charAt(j) == '@' ? 1 : 0;
+                    total += cells[i][j];
+                    sumRow[i] += cells[i][j];
+                    sumCol[j] += cells[i][j];
+                }
+                sumRows[i] += sumRow[i];
+                if (i > 0) {
+                    sumRows[i] += sumRows[i - 1];
+                }
+            }
+            for (int j = 0; j < C; j ++) {
+                int count = j;
+                sumCols[j] += sumCol[j];
+                while (count > 0) {
+                    sumCols[j] += sumCol[count - 1];
+                    count --;
+                }
+            }
+
+            // # of chips < # of pieces or
+            // # of pieces is not divisible by # of chips
+            if (total < (H+1) * (V+1) || total % (H+1) * (V+1) != 0) {
+                System.out.println("Case #" + t + ": " + "IMPOSSIBLE");
+            } else {
+                // chips needed for each piece
+                int chips = total / (H+1) * (V+1);
+                // check horizontals
+
+                // check verticals
+
+                // check cell
+
+                // System.out.println("Case #" + t + ": " + "POSSIBLE");
+
+            }
+
+
+        }
+    }
+}
